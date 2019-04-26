@@ -1,3 +1,43 @@
-<p>
-  register works!
-</p>
+<form [formGroup]="registerForm" (ngSubmit)="submitRegister()" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <h1>Registration Form</h1>
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="example@gmail.com" formControlName="email">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-error *ngIf="registerForm.get('email').hasError('required')">This field is mandatory!</mat-error>
+    <mat-error *ngIf="registerForm.get('email').hasError('email')">Please enter a valid email!</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>First name</mat-label>
+    <input matInput placeholder="John" formControlName="firstName">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-error *ngIf="registerForm.get('firstName').hasError('required')">This field is mandatory!</mat-error>
+    <mat-error *ngIf="registerForm.get('firstName').hasError('pattern')">First name must be between 3 and 16 letters!</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Last name</mat-label>
+    <input matInput placeholder="Doe" formControlName="lastName">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-error *ngIf="registerForm.get('lastName').hasError('required')">This field is mandatory!</mat-error>
+    <mat-error *ngIf="registerForm.get('lastName').hasError('pattern')">Last name must be between 3 and 16 letters!</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="S3cur3dPa55w0rd" type="password" formControlName="password">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-error *ngIf="registerForm.get('password').hasError('required')">This field is mandatory!</mat-error>
+    <mat-error *ngIf="registerForm.get('password').hasError('pattern')">Password must be between 3 and 16 letters!</mat-error>
+  </mat-form-field>
+  <mat-error
+    *ngIf="(registerForm.get('password').dirty && registerForm.get('confirmPass').dirty)
+    && registerForm.hasError('invalidMatch')">Passwords must match!</mat-error>
+  <mat-form-field appearance="outline">
+    <mat-label>Confirm Password</mat-label>
+    <input matInput placeholder="S3cur3dPa55w0rd" type="password" formControlName="confirmPass">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-error *ngIf="registerForm.get('confirmPass').hasError('required')">This field is mandatory!</mat-error>
+    <mat-error *ngIf="registerForm.get('confirmPass').hasError('pattern')">Password must be between 3 and 16 letters!</mat-error>
+  </mat-form-field>
+  <button type="submit" mat-fab color="primary">Submit</button>
+  <!-- [disabled]="registerForm.invalid || !registerForm.dirty" -->
+</form>
