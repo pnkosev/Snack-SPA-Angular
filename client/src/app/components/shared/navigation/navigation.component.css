@@ -1,0 +1,12 @@
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: rgb(11, 83, 124)
+}
+
+ul {
+    list-style: none;
+}
