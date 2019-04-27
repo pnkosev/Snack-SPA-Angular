@@ -38,6 +38,5 @@
     <mat-error *ngIf="registerForm.get('confirmPass').hasError('required')">This field is mandatory!</mat-error>
     <mat-error *ngIf="registerForm.get('confirmPass').hasError('pattern')">Password must be between 3 and 16 letters!</mat-error>
   </mat-form-field>
-  <button type="submit" mat-fab color="primary">Submit</button>
-  <!-- [disabled]="registerForm.invalid || !registerForm.dirty" -->
+  <button [disabled]="registerForm.invalid || !registerForm.dirty" type="submit" mat-fab color="primary">Submit</button>
 </form>

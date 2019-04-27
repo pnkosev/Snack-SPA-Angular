@@ -1,3 +1,20 @@
-<p>
-  login works!
-</p>
+<form [formGroup]="loginForm" (ngSubmit)="submitLogin()" fxLayout="column" fxLayoutAlign="center center"
+  fxLayoutGap="10px">
+  <h1>Login Form</h1>
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="example@gmail.com" formControlName="email">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-error *ngIf="loginForm.get('email').hasError('required')">This field is mandatory!</mat-error>
+    <mat-error *ngIf="loginForm.get('email').hasError('email')">Please enter a valid email!</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput placeholder="S3cur3dPa55w0rd" type="password" formControlName="password">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-error *ngIf="loginForm.get('password').hasError('required')">This field is mandatory!</mat-error>
+    <mat-error *ngIf="loginForm.get('password').hasError('pattern')">Password must be between 3 and 16 letters!
+    </mat-error>
+  </mat-form-field>
+  <button [disabled]="loginForm.invalid || !loginForm.dirty" type="submit" mat-fab color="primary">Submit</button>
+</form>
