@@ -20,43 +20,6 @@ function validateUser(req, res) {
 module.exports = {
 	register: (req, res, next) => {
 		if (validateUser(req, res)) {
-			// const { username, email, password } = req.body;
-			// const salt = encryption.generateSalt();
-			// const hashedPassword = encryption.generateHashedPassword(salt, password);
-
-			// User
-			// 	.create({
-			// 		username,
-			// 		email,
-			// 		salt,
-			// 		hashedPassword,
-			// 		roles: ['User']
-			// 	})
-			// 	.then((user) => {
-
-			// 		const token = jwt.sign({
-			// 			username: user.username,
-			// 			userId: user._id.toString()
-			// 		}, config.JWTSecret, {
-			// 				expiresIn: '1h'
-			// 			});
-
-			// 		res.status(201)
-			// 			.json({
-			// 				success: true,
-			// 				message: `User created successfully! Welcome, ${user.username}!`,
-			// 				token,
-			// 				userId: user._id,
-			// 				username: user.username,
-			// 				isAdmin: user.roles.indexOf('Admin') !== -1,
-			// 			});
-			// 	})
-			// 	.catch((error) => {
-			// 		if (!error.statusCode) {
-			// 			error.statusCode = 500;
-			// 		}
-			// 		next(error);
-			// 	});
 			passport.authenticate('local-signup', (err) => {
 				if (err) {
 					return next(err);
@@ -80,7 +43,7 @@ module.exports = {
 						.cookie('jwt', token, config.jwt.cookie)
 						.json({
 							success: true,
-							message: `You have successfully logged in, ${userData.username}!`,
+							message: `You have successfully logged in!`,
 							jwt: token,
 							user: userData,
 						});

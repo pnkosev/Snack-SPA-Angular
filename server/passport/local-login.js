@@ -6,18 +6,18 @@ const User = require('../models/User');
 
 
 module.exports = new PassportLocalStrategy({
-  usernameField: 'username',
+  usernameField: 'email',
   passwordField: 'password',
   session: false,
   passReqToCallback: true
-}, (req, username, password, done) => {
+}, (req, email, password, done) => {
   const userToLogin = {
-    username: username.trim(),
+    email: email.trim(),
     password: password.trim()
   }
 
   User
-    .findOne({ username: userToLogin.username })
+    .findOne({ email: userToLogin.email })
     .then(user => {
       if (!user || !user.authenticate(userToLogin.password)) {
         const error = new Error('Incorrect username or password');
@@ -37,8 +37,6 @@ module.exports = new PassportLocalStrategy({
       if (user.roles) {
         data.roles = user.roles
       };
-
-      console.log('login-pass');
 
       return done(null, token, data);
     })

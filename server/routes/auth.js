@@ -7,25 +7,31 @@ const User = require('../models/User');
 
 router.post('/register',
   [
-    body('username')
+    body('email')
       .trim()
       .not().isEmpty()
-      .isLength({ min: 4 })
-      .withMessage('Please enter a valid username.')
+      .isEmail()
+      .normalizeEmail()
+      .withMessage('Please enter a valid email.')
       .custom((value, { req }) => {
         return User
-          .findOne({ username: value })
+          .findOne({ email: value })
           .then(user => {
             if (user) {
               return Promise.reject('Username already exists!');
             }
           })
       }),
-    body('email')
+    body('firstName')
+      .trim()
       .not().isEmpty()
-      .isEmail()
-      .normalizeEmail()
-      .withMessage('Please enter a valid email.'),
+      .isLength({ min: 3 })
+      .withMessage('Please enter a valid first name.'),
+    body('lastName')
+      .trim()
+      .not().isEmpty()
+      .isLength({ min: 3 })
+      .withMessage('Please enter a valid last name.'),
     body('password')
       .trim()
       .not().isEmpty()
@@ -36,10 +42,11 @@ router.post('/register',
 
 router.post('/login',
   [
-    body('username')
+    body('email')
       .trim()
       .not().isEmpty()
-      .isLength({ min: 4 })
+      .isEmail()
+      .normalizeEmail()
       .withMessage('Please enter a valid username.'),
     body('password')
       .trim()
